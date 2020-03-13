@@ -1,5 +1,4 @@
 # 基于Jenkins的持续集成CI
-浙江新闻、浙江24小时、县市报等APP采用了基于jenkins的持续集成CI。  
 
 **CI（continuous integration）持续集成**  
 一次构建：可能包含编译，测试，审查和部署，以及其他一些事情，一次构建就是将源代码放在一起，并验证软件是否可以作为一个一致的单元运行的过程。可以理解为频繁的在多个团队的工作中集成，并且给与反馈的过程。团队开发成员经常集成它们的工作，每次集成都通过自动化的构建（包括编译，发布，自动化测试）来验证，从而尽早地发现集成错误。
@@ -34,7 +33,7 @@ Jenkins 是一个开源项目，提供了一种易于使用的持续集成系统
 ![](https://ws3.sinaimg.cn/large/006tNc79ly1fytk1xm2wdj30aa0bumy3.jpg)
 ![](https://ws1.sinaimg.cn/large/006tNc79ly1fytk4dzl2zj30qf0pzwij.jpg)
 
-进入刚才创建的任务"24h_ Android _test"详情页，选择菜单"Configure"进入配置页面  
+进入刚才创建的任务"Android_test"详情页，选择菜单"Configure"进入配置页面  
 ![](https://ws4.sinaimg.cn/large/006tNc79ly1fytk6wwas6j30j909ddh1.jpg)
 
 ### 三、源码管理
@@ -58,9 +57,9 @@ cd ./env
 sh ./env.sh $ENV
 </pre>
 
-2、在根目录生成24h.properties文件
+2、在根目录生成xxx.properties文件
 <pre>
-echo "apiDebug="$apiDebug"\nappVersionCode="$appVersionCode"\nappVersionName="$appVersionName>24h.properties
+echo "apiDebug="$apiDebug"\nappVersionCode="$appVersionCode"\nappVersionName="$appVersionName>xxx.properties
 </pre>
 
 3、将sdk.dir和api.debug写入根目录local.properties文件
@@ -74,10 +73,10 @@ echo "12345678"|sudo -S ./gradlew clean build
 <pre>
 if [ $apiDebug = true ]
 then
-	appDescription="浙江24小时V"$appVersionName" "$ENV"环境"
+	appDescription="XXX V"$appVersionName" "$ENV"环境"
 elif [ -z $appDescription ]
 then
-	appDescription="浙江24小时V"$appVersionName"正式包"
+	appDescription="XXX V"$appVersionName"正式包"
 fi
 </pre>
 
@@ -88,8 +87,8 @@ curl -F "file=@app-release.apk"  -F "updateDescription=$appDescription" -F "uKey
 " -F "_api_key=284ff64e8da3000912795e3b7c18ff2a" http://www.pgyer.com/apiv1/app/upload
 </pre>
 
-6、如果需要打渠道包，请执行Walle多渠道打包脚本，渠道列表在项目根目录channel文件中配置  
-> 渠道包位置：/Users/mac/.jenkins/workspace/24h_Android_release/app/build/outputs/channels/  
+6、如果需要打渠道包，请执行Walle多渠道打包脚本，渠道列表在项目根目录channel文件中配置
+> 渠道包位置：/Users/mac/.jenkins/workspace/xxx/app/build/outputs/channels/  
 
 <pre>
 echo "12345678"|sudo -S ./gradlew clean assembleReleaseChannels -PchannelFile=channel
